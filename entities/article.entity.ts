@@ -19,15 +19,13 @@ export class Article {
   @PrimaryGeneratedColumn({ type: "int", name: "article_id", unsigned: true })
   articleId: number;
 
-  @Column( { type: "varchar", length: 128, })
+  @Column({ type: "varchar", length: 128 })
   name: string;
 
-  @Column({ type:"int", name: "category_id", unsigned: true })
+  @Column({ type: "int", name: "category_id", unsigned: true })
   categoryId: number;
 
-  
-
-  @Column({ type: "int", length: 255, })
+  @Column({ type: "varchar", length: 255 })
   excerpt: string;
 
   @Column({ type: "text"})

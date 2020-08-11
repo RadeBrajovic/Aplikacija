@@ -18,21 +18,21 @@ export class ArticlePrice {
   })
   articlePriceId: number;
 
-  @Column({ type:"int", name: "article_id", unsigned: true, })
+  @Column({ type:"int", name: "article_id", unsigned: true })
   articleId: number;
 
   @Column({
     type: "decimal",
     unsigned: true,
     precision: 10,
-    scale: 2,
+    scale: 2
   })
   price: number;
 
   @Column({
     type: "timestamp",
     name: "curent_at",
-    default: () => "CURRENT_TIMESTAMP",
+    default: () => "CURRENT_TIMESTAMP"
   })
   curentAt: Date;
 

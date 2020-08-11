@@ -14,7 +14,7 @@ export class Administrator {
     @Column({        
       type: "varchar",   
       unique: true,
-      length: 32,
+      length: 32
     })
     username: string;
 

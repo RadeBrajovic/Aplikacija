@@ -28,7 +28,7 @@ export class ArticleFeature {
   @Column({ type:"int", name: "feature_id", unsigned: true })
   featureId: number;
 
-  @Column({ type:"varchar", length: 255,})
+  @Column({ type:"varchar", length: 255 })
   value: string;
 
   @ManyToOne(

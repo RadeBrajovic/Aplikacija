@@ -17,7 +17,7 @@ export class AdministratorController {
         return this.administratorService.getAll();
     }
 
-    // GET http://localhost:3000/api/administrator/4/
+    // GET http://localhost:3000/api/administrator/4/ // Vracanje administratora pod tim brojem
     @Get(':id')
     getById(@Param('id') administratorId: number): Promise<Administrator | ApiResponse >{
         return new Promise(async (resolve) => {
@@ -31,13 +31,13 @@ export class AdministratorController {
     });
 }
 
-    // PUT http://localhost:3000/api/administrator/
+    // PUT http://localhost:3000/api/administrator/  // Dodajemo novog administratora
     @Put()
     add(@Body() data: AddAdministratorDto ): Promise<Administrator | ApiResponse > {
         return this.administratorService.add(data);
     }
 
-    // POST http://localhost:3000/api/administrator/
+    // POST http://localhost:3000/api/administrator/ // Editujemo postojeci sadrzaj nekog administratora
     @Post(':id')
     edit(@Param('id') id: number, @Body() data: EditAdministratorDto): Promise<Administrator | ApiResponse > {
         return this.administratorService.editById(id, data);

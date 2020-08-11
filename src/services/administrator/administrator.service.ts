@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { AddAdministratorDto } from 'src/dtos/administrator/add.administrator.dto';
 import { EditAdministratorDto } from 'src/dtos/administrator/edit.administrator.dto';
 import { ApiResponse } from 'src/misc/api.response.class';
-import { resolve } from 'path';
+
 
 
 
@@ -40,7 +40,7 @@ export class AdministratorService {
         return new Promise((resolve) => { 
             this.administrator.save(newAdmin)
             .then(data => resolve(data))
-            .catch(error => {
+            .catch( error => {
                     const response: ApiResponse = new ApiResponse("error", -1001);
                     resolve(response);
             

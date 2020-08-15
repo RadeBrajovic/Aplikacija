@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import { AdministratorService } from "src/services/administrator/administrator.service";
 import * as jwt from 'jsonwebtoken';
 import { JwtDataAdministratorDto } from "src/dtos/administrator/jwt.data.administrator.dto";
-import { jwtSecret } from "config/jwt.sercret";
+import { jwtSecret } from "config/jwt.secret";
 
 
 @Injectable()

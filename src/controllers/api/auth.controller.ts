@@ -7,7 +7,8 @@ import { LoginInfoAdministratorDto } from 'src/dtos/administrator/login.info.adm
 import * as jwt from 'jsonwebtoken';
 import { JwtDataAdministratorDto } from 'src/dtos/administrator/jwt.data.administrator.dto';
 import { Request } from "express";
-import { jwtSecret } from 'config/jwt.sercret';
+import { jwtSecret } from 'config/jwt.secret';
+
 @Controller('auth')
 export class AuthController {
     constructor(public administratorService: AdministratorService) { }

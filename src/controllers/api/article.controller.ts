@@ -195,7 +195,7 @@ export class ArticleController {
                 fs.unlinkSync(StorageConfig.photo.destination + 
                              StorageConfig.photo.resize.small.directory + 
                              photo.imagePath);
-            } catch (e) { }
+            } catch (e) {}
 
         const deleteResult = await this.photoService.deleteById(photoId);
 

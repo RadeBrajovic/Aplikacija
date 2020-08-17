@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param, UseInterceptors, UploadedFile, Req, Delete } from "@nestjs/common";
+import { Controller, Post, Body, Param, UseInterceptors, UploadedFile, Req, Delete, UseGuards, Patch } from "@nestjs/common";
 import { Crud } from "@nestjsx/crud";
 import { Article } from "src/entities/article.entity";
 import { ArticleService } from "src/services/article/article.service";
@@ -12,6 +12,8 @@ import { ApiResponse } from "src/misc/api.response.class";
 import * as fileType from 'file-type';
 import * as fs from 'fs';
 import * as sharp from 'sharp';
+import { RoleCheckedGuard } from "src/misc/role.checher.guard";
+import { AllowToRoles } from "src/misc/allow.to.roles.descriptor";
 
 
 @Controller('api/article')
@@ -54,19 +56,26 @@ export class ArticleController {
         
         ) { }
 
+        
     @Post('createFull') // POST http://localhost:3000/api/article/createFull/
+    @UseGuards(RoleCheckedGuard)
+    @AllowToRoles('administrator')
     createFullArticle(@Body() data: AddArticleDto) {
         return this.service.createFullArticle(data);
     }
-
- 
+    
     @Post(':id/uploadPhoto/')   // POST http://localhost:3000/api/article/:id/uploadPhoto/
-    @UseInterceptors(FileInterceptor('photo', {
+    @UseGuards(RoleCheckedGuard)
+    @AllowToRoles('administrator')
+    @UseInterceptors
+        (FileInterceptor('photo', {
             storage: diskStorage({
                 destination: StorageConfig.photo.destination,
                 filename: (req, file, callback) => {
-                    const original: string = file.originalname;                // 'Neka   slika.jpg'  ->
-                                                                             // '20200420-978500766-Neka-slika.jpg'
+                    const original: string = file.originalname; 
+
+                                   // 'Neka   slika.jpg'  ->
+                                   // '20200420-978500766-Neka-slika.jpg'
 
                     let normalized = original.replace(/\s+/g, '-');
                     normalized = normalized.replace(/[^A-z0-9\.\-]/g,'');
@@ -87,14 +96,13 @@ export class ArticleController {
             }),
             fileFilter: (req, file, callback) => {
                 // 1. Provera eksetenzije: JPG, PNG ...
-              
                 if (!file.originalname.toLowerCase().match(/\.(jpg|png)$/)) {
                     req.fileFilterError = 'Bad file extension!';
                     callback((null), false);
                     return;
                 }
 
-              // 2. Provera tipa sadrzaja: image/jpeg, image/png (mimetype)
+                // 2. Provera tipa sadrzaja: image/jpeg, image/png (mimetype)
                 if (!(file.mimetype.includes('jpeg') || file.mimetype.includes('png'))) {
                     req.fileFilterError = 'Bad file content type!';
                     callback((null), false);
@@ -172,8 +180,10 @@ export class ArticleController {
             .toFile(destinationFilePath);
     }
 
-    // http://localhost:3000/api/article/1/deletePhoto/45
-    @Delete(':articleId/deletePhoto/:photoId')
+
+    @Delete(':articleId/deletePhoto/:photoId')     // http://localhost:3000/api/article/1/deletePhoto/45
+    @UseGuards(RoleCheckedGuard)
+    @AllowToRoles('administrator')
     public async deletePhoto(
         @Param('articleId') articleId: number,
         @Param('photoId') photoId: number,       
@@ -205,7 +215,7 @@ export class ArticleController {
 
         return new ApiResponse('ok', 0, 'One photo deleted');
 
-    }
+       }
     
 }
 

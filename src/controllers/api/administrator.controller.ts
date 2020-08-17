@@ -11,7 +11,7 @@ import { RoleCheckedGuard } from "src/misc/role.checher.guard";
 export class AdministratorController {
     constructor(
         private administratorService: AdministratorService
-    ) {}
+    ) { }
 
     // GET http://localhost:3000/api/administrator/
     @Get()

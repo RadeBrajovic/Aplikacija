@@ -47,7 +47,25 @@ import { AllowToRoles } from "src/misc/allow.to.roles.descriptor";
             }
 
         }
-    }
+    },
+    routes: {
+        only: [
+            'getOneBase', 
+            'getManyBase',
+        ],
+        getOneBase: {
+            decorators: [
+                UseGuards(RoleCheckedGuard),
+                AllowToRoles('administrator', 'user')
+                ],
+        },
+        getManyBase: {
+            decorators: [
+                UseGuards(RoleCheckedGuard),
+                AllowToRoles('administrator', 'user')
+                ],
+        },
+    },
 })
 export class ArticleController {
     constructor(
